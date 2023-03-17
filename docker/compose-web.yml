@@ -8,7 +8,7 @@ services:
         ports:
             - "8000-8002:80"
         volumes:
-            - ./config/web_server.conf:/etc/httpd/httpd.conf
+            - ../config/web_server.conf:/etc/httpd/httpd.conf
             
     websocket_server:
         container_name: websocket_server
