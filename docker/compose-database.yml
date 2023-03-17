@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+    database:
+        container_name: database
+        build:
+            context: ./docker/build/database
+            args:
+                - VAULT_ADDR=$VAULT_ADDR
+                - VAULT_TOKEN=$VAULT_TOKEN
+        ports:
+            - "3306"
+        # volumes:
+        #     - ./config/database_master.conf:/etc/mysql/my.cnf
+        environment:
+            - _ENVIRONMENT_KEY=MASTER
+            - MARIADB_DATABASE=db
+        depends_on:
+            - build_passwordstore
+            
+    database_readonly:
+        container_name: database_readonly
+        build:
+            context: ./docker/build/database
+            args:
+                - VAULT_ADDR=$VAULT_ADDR
+                - VAULT_TOKEN=$VAULT_TOKEN
+        ports:
+            - "3307:3306"
+        # volumes:
+        #     - ./config/database_slave_readonly.conf:/etc/mysql/my.cnf
+        environment:
+            - _ENVIRONMENT_KEY=SLAVE
+            - MARIADB_DATABASE=db
+        depends_on:
+            - build_passwordstore

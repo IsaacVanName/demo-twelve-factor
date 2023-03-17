@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+    queue_records:
+        container_name: queue_records
+        image: roribio16/alpine-sqs
+        
+    queue_logs:
+        container_name: queue_logs
+        image: bitnami/kafka

@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+    web_server:
+        # no custom container name because we're scaling
+        image: httpd
+        deploy:
+            replicas: 3
+        ports:
+            - "8000-8002:80"
+        volumes:
+            - ./config/web_server.conf:/etc/httpd/httpd.conf
+            
+    websocket_server:
+        container_name: websocket_server
+        image: node
+        ports:
+            - "6455"
+    
+    # build_web_server:
+    # build_websocket_server:

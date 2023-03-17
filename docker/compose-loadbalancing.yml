@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+    # Taking some liberties with the usage of "load balancer" here.
+    # A reverse proxy in Nginx plus Docker's built-in deploy replica functionality
+    #   simulates the spin up of targets and routing traffic to active targets,
+    #   like the load balancing you'd see in AWS with ELBs and target groups.
+    loadbalancer:
+        container_name: loadbalancer
+        image: linuxserver/swag:latest
+        ports:
+            - "80"
+            - "443"
+        volumes:
+            - ./config/loadbalancer.conf:/etc/nginx/conf.d/nginx.conf
